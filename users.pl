@@ -21,7 +21,7 @@ my $shell = '';
 
 
 GetOptions(
-    'user'          => \$user,
+    'user=s'          => \$user,
     'create=s'      => \$create,
     'passwd=s'      => \$passwd,
     'uid=s'         => \$uid,
@@ -40,6 +40,7 @@ GetOptions(
 #jezeli tworzymy nowego uzytkownika
 if ($create ne '') {
     my $command = $create;
+    my $ret;
     
     #dajemy mu UID
     if($uid ne '') {
@@ -68,8 +69,9 @@ if ($create ne '') {
         $command = '-p ' . $pass . ' ' . $command;
     }
     
-    #`useradd $command`;
-    say 'useradd ' . $command;
+    $ret = `useradd $command`;
+    say $ret;
+    #say 'useradd ' . $command;
         
 }
 
@@ -79,25 +81,25 @@ if($user ne '') {
     #dodajemy do grupy
     if($groupadd ne '') {
         my $ret; 
-        #$ret = `gpasswd -a $user $groupadd`;
-        #say $ret;
-        say "gpasswd -a " . $user . " " . $groupadd;
+        $ret = `gpasswd -a $user $groupadd`;
+        say $ret;
+        #say "gpasswd -a " . $user . " " . $groupadd;
     }
     
     #usuwamy z grupy
     if($groupdel ne '') {
         my $ret; 
-        #$ret = `gpasswd -d $user $groupdel`;
-        #say $ret;
-        say "gpasswd -d " . $user . " " . $groupdel;
+        $ret = `gpasswd -d $user $groupdel`;
+        say $ret;
+        #say "gpasswd -d " . $user . " " . $groupdel;
     }
     
     #zmiana shella
     if($shell ne '') {
         my $ret;
-        #$ret = `chsh -s $shell $user`;
-        #say $ret;
-        say 'chsh -s ' . $shell . ' ' .$user;
+        $ret = `chsh -s $shell $user`;
+        say $ret;
+        #say 'chsh -s ' . $shell . ' ' .$user;
     }
     
     #kopiowanie plikow kropkowych
@@ -109,6 +111,7 @@ if($user ne '') {
         foreach my $file (@files) {
             if (-f '$source/$file') {
                 copy '$source/$file', '$dest/' . '.' . '$file';
+                #say 'copy ' . '$source/$file'.','. '$dest/' . '.' . '$file';
             }
         }
         closedir($DIR);
@@ -119,9 +122,9 @@ if($user ne '') {
         my $fileDesc;
         my $file = $save;
         open($fileDesc, ">", $file) or die 'Nie udalo sie otworzyc pliku do zapisu';
-        my ($name, $pass, $uid, $gid, $quota, $comment, $gcos, $dir, $shell, $expire) = getpwname($user);
-        my $toprint = 'login: ' . $name . ' uid: ' . $uid . ' haslo: ' . $pass;
-        printf($fileDesc, $toprint);
+        my ($name, $pass, $uid, $gid, $quota, $comment, $gcos, $dir, $shell, $expire) = getpwnam($user);
+        my $toprint = 'login: ' . $user . ' uid: ' . $uid . ' haslo: ' . $pass;
+        printf($fileDesc $toprint);
         close($fileDesc);
     }
     
@@ -131,9 +134,9 @@ if($user ne '') {
 #usuwamy uzytkownika
 if($delete) {
     my $ret;    
-    #$ret = `userdel -r $delete`
-    #say $ret
-    say "userdel -r " . $delete
+    $ret = `userdel -r $delete`
+    say $ret
+    #say "userdel -r " . $delete
 }
 
 #czy uid jest wolny
