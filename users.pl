@@ -3,6 +3,8 @@ use strict;
 use Getopt::Long;
 use feature 'say';
 use String::MkPasswd qw(mkpasswd);
+use Tk;
+use File::Copy;
 
 # setup my defaults
 my $user = '';
@@ -110,7 +112,7 @@ if($user ne '') {
         my @files = readdir($DIR);
         foreach my $file (@files) {
             if (-f '$source/$file') {
-                copy '$source/$file', '$dest/' . '.' . '$file';
+                copy('$source/$file', '$dest/' . '.' . '$file') or die 'Kopiowanie nie udalo sie!';
                 #say 'copy ' . '$source/$file'.','. '$dest/' . '.' . '$file';
             }
         }
@@ -134,9 +136,20 @@ if($user ne '') {
 #usuwamy uzytkownika
 if($delete) {
     my $ret;    
-    $ret = `userdel -r $delete`
-    say $ret
-    #say "userdel -r " . $delete
+    $ret = `userdel -r $delete`;
+    say $ret;
+    #say "userdel -r " . $delete;
+}
+
+if($help) {
+    my $help = '
+    perl users.pl [opcje]
+    -user login [-groupadd group] [-groupdel group]
+        [-shell shell] [-copydir dir] [-save file]
+    -create login [-uid uid] [-passwd password] | [-randpasswd]
+    -help
+    -delete login';
+    say $help;
 }
 
 #czy uid jest wolny
