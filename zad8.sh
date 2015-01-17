@@ -164,11 +164,11 @@ ruch_komputera()
     #natychmiastowa wygrana
     test_wyg=`echo $plansza | awk '/0 . .;2 . .;2 . .|0 2 2;. . .;. . .|0 . .;. 2 .;. . 2/ {print "1"; seen=1}
                                     /. 0 .;. 2 .;. 2 .|2 0 2;. . .;. . ./ {if (seen!=1) print "2"; seen=1}
-                                    /. . 0;. . 2;. . 2|2 2 0;. . .;. . ./ {if (seen!=1) print "3"; seen=1}
+                                    /. . 0;. . 2;. . 2|2 2 0;. . .;. . .|. . 0;. 2 .;2 . ./ {if (seen!=1) print "3"; seen=1}
                                     /2 . .;0 . .;2 . .|. . .;0 2 2;. . ./ {if (seen!=1) print "4"; seen=1}
                                     /. 2 .;. 0 .;. 2 .|. . .;2 0 2;. . .|2 . .;. 0 .;. . 2/ {if (seen!=1) print "5"; seen=1}
                                     /. . 2;. . 0;. . 2|. . .;2 2 0;. . ./ {if (seen!=1) print "6"; seen=1}
-                                    /2 . .;2 . .;0 . .|. . .;. . .;0 2 2/ {if (seen!=1) print "7"; seen=1}
+                                    /2 . .;2 . .;0 . .|. . .;. . .;0 2 2|. . 2;. 2 .;0 . ./ {if (seen!=1) print "7"; seen=1}
                                     /. 2 .;. 2 .;. 0 .|. . .;. . .;2 0 2/ {if (seen!=1) print "8"; seen=1}
                                     /. . 2;. . 2;. . 0|. . .;. . .;2 2 0|2 . .;. 2 .;. . 0/ {if (seen!=1) print "9"; seen=1}'`
                                     
@@ -182,11 +182,11 @@ ruch_komputera()
     #natychmiastowa przegrana
     test_przeg=`echo $plansza | awk '/0 . .;1 . .;1 . .|0 1 1;. . .;. . .|0 . .;. 1 .;. . 1/ {print "1"; seen=1}
                                     /. 0 .;. 1 .;. 1 .|1 0 1;. . .;. . ./ {if (seen!=1) print "2"; seen=1}
-                                    /. . 0;. . 1;. . 1|1 1 0;. . .;. . ./ {if (seen!=1) print "3"; seen=1}
+                                    /. . 0;. . 1;. . 1|1 1 0;. . .;. . .|. . 0;. 1 .;1 . ./ {if (seen!=1) print "3"; seen=1}
                                     /1 . .;0 . .;1 . .|. . .;0 1 1;. . ./ {if (seen!=1) print "4"; seen=1}
                                     /. 1 .;. 0 .;. 1 .|. . .;1 0 1;. . .|1 . .;. 0 .;. . 1/ {if (seen!=1) print "5"; seen=1}
                                     /. . 1;. . 0;. . 1|. . .;1 1 0;. . ./ {if (seen!=1) print "6"; seen=1}
-                                    /1 . .;1 . .;0 . .|. . .;. . .;0 1 1/ {if (seen!=1) print "7"; seen=1}
+                                    /1 . .;1 . .;0 . .|. . .;. . .;0 1 1|. . 1;. 1 .;0 . ./ {if (seen!=1) print "7"; seen=1}
                                     /. 1 .;. 1 .;. 0 .|. . .;. . .;1 0 1/ {if (seen!=1) print "8"; seen=1}
                                     /. . 1;. . 1;. . 0|. . .;. . .;1 1 0|1 . .;. 1 .;. . 0/ {if (seen!=1) print "9"; seen=1}'`
      if [ "$test_przeg" != "" ]
@@ -333,13 +333,13 @@ dodaj_wierszami()
 }
 
 
-echo "chcesz zagrac? (tak aby zagrac)"
+echo "\t\tKolko i krzyzyk\n\nChcesz zagrac? ('tak' aby zagrac)"
 read odp
 
 
 while [ "$odp" = "tak" ]
     do
-        echo "kto pierwszy?"
+        echo "kto pierwszy? Ty - 1, komputer - 2"
         read gracz
 
         while [ "$gracz" != "1" -a "$gracz" != "2" ]
@@ -419,17 +419,20 @@ while [ "$odp" = "tak" ]
                 echo "Remis!"
                 echo
             else
-                echo "Wygral gracz " `czy_wygrana`
-                echo
+                if [ "`czy_wygrana`" = "1" ]
+                	then
+                		echo "\nGratulacje! Wygrana!\n"
+               		else
+               			echo "\nKomputer wygral ...\n"
+               	fi
         fi
         
         echo
-        echo "jeszcze raz?"
+        echo "Jeszcze raz? ('tak' aby zagrac)"
         read odp
         czysc_plansze
         
 done
 
-echo $res
 
 echo "KONIEC"
