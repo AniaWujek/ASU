@@ -63,12 +63,14 @@ if ($create ne '') {
     
     #dajemy mu haslo
     if($passwd ne '') {
-        my $pass = chomp(`openssl passwd -crypt $passwd`);
+        my $pass = `openssl passwd -crypt $passwd`;
+        $pass = chomp($pass);
         $command = '-p ' . $pass . ' ' . $command;
     }
     elsif ($randpasswd) {
         my $pass = mkpasswd();
-        $pass = chomp(`openssl passwd -crypt $pass`);
+        $pass = `openssl passwd -crypt $pass`;
+        $pass = chomp($pass);
         say 'Twoje haslo to ' . $pass;
         $command = '-p ' . $pass . ' ' . $command;
     }
