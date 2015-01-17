@@ -72,7 +72,7 @@ if ($create ne '') {
         say 'Twoje haslo to ' . $pass;
         $command = '-p ' . $pass . ' ' . $command;
     }
-    
+    say $command;
     $ret = `useradd $command`;
     say $ret;
     #say 'useradd ' . $command;
