@@ -41,7 +41,7 @@ GetOptions(
 
 #jezeli tworzymy nowego uzytkownika
 if ($create ne '') {
-    my $command = $create;
+    my $command = '-d /home/' . $create . ' -m ' . $create;
     my $ret;
     
     #dajemy mu UID
@@ -51,7 +51,8 @@ if ($create ne '') {
             $command = '-u ' . $uid . ' ' . $command; 
         }
         else {
-            my $newuid = getUID();        
+            my $newuid = getUID();  
+            say 'Brak takiego UID! Twoje UID to ' . $newuid;      
             $command = '-u ' . $newuid . ' ' . $command;
         }
     }
