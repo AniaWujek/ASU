@@ -120,7 +120,7 @@ elsif($user ne '') {
         foreach my $file (@files) {
             say 'file: ' . $file;
             #if (-f $source . '/' . $file) {
-                if( $file != '.' && $file != '..' ) {
+                if( $file ne '.' && $file ne '..' ) {
                     #copy('$source/$file', '$dest/' . '.' . '$file') or die 'Kopiowanie nie udalo sie!';
                     say 'copy ' . '$source/$file'.','. '$dest/' . '.' . '$file';
                 }
