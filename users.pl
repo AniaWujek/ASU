@@ -86,7 +86,7 @@ if ($create ne '') {
     if($save ne '') {
         my $fileDesc;
         my $file = $save;
-        open($fileDesc, ">", $file) or die 'Nie udalo sie otworzyc pliku do zapisu';
+        open($fileDesc, ">>", $file) or die 'Nie udalo sie otworzyc pliku do zapisu';
         
         my $toprint = 'login: ' . $create . ' uid: ' . $uid . ' haslo: ' . $passwd . "\n";
         printf($fileDesc $toprint);
