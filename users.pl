@@ -91,6 +91,7 @@ if ($create ne '') {
         my $toprint = 'login: ' . $create . ' uid: ' . $uid . ' haslo: ' . $passwd . "\n";
         printf($fileDesc $toprint);
         close($fileDesc);
+        `chmod 700 $file`;
     }
     
     $ret = `useradd $command`;
