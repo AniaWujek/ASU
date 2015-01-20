@@ -42,7 +42,7 @@ GetOptions(
 #jezeli tworzymy nowego uzytkownika
 if ($create ne '') {
     
-    my $ret, $newuid, 
+    my $ret, $newuid;
 
     my $command = '-d /home/' . $create . ' -m ' . $create;
     
