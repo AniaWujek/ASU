@@ -122,7 +122,7 @@ elsif($user ne '') {
             #if (-f $source . '/' . $file) {
                 if( $file ne '.' && $file ne '..' ) {
                     #copy($source . '/' . $file, $dest . '/.' . $file) or die 'Kopiowanie nie udalo sie!';
-                    say 'copy(' . $source . '/' . $file . ',' . $dest . '/.' . $file);
+                    say 'copy(' . $source . '/' . $file . ',' . $dest . '/.' . $file . ')';
                 }
                 
             #}
