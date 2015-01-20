@@ -76,7 +76,7 @@ if ($create ne '') {
     elsif ($randpasswd) {
         my $pass = mkpasswd();
         $passwd = $pass;
-        $pass = `openssl passwd -crypt $pass`;
+        $pass = `openssl passwd -crypt "$pass"`;
         chomp($pass);
         say 'Twoje haslo to ' . $passwd;
         $command = '-p ' . $pass . ' ' . $command;
