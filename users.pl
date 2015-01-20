@@ -111,18 +111,18 @@ elsif($user ne '') {
     
     #kopiowanie plikow kropkowych
     if($copydir ne '') {
-        say 'jestem!'; 
+        
         my $source = $copydir;
         my $dest = '/home/' . $user;
-        say 'source: ' . $source . ' dest: ' . $dest;
+        
         opendir(my $DIR, $source) || die 'nieprawidlowy katalog ' . $source . '!';
         my @files = readdir($DIR);
         foreach my $file (@files) {
-            #say 'file: ' . $file;
+            
             if (-f $source . '/' . $file) {
                 if( $file ne '.' && $file ne '..' ) {
-                    #copy($source . '/' . $file, $dest . '/.' . $file) or die 'Kopiowanie nie udalo sie!';
-                    say 'copy(' . $source . '/' . $file . ',' . $dest . '/.' . $file . ')';
+                    copy($source . '/' . $file, $dest . '/.' . $file) or die 'Kopiowanie nie udalo sie!';
+                    #say 'copy(' . $source . '/' . $file . ',' . $dest . '/.' . $file . ')';
                 }
                 
             }
