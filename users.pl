@@ -88,7 +88,7 @@ if ($create ne '') {
         my $file = $save;
         open($fileDesc, ">>", $file) or die 'Nie udalo sie otworzyc pliku do zapisu';
         
-        my $toprint = 'login: ' . $create . ' uid: ' . $uid . ' haslo: ' . $passwd . "\n";
+        my $toprint = 'login: ' . $create . ' uid: ' . $newuid . ' haslo: ' . $passwd . "\n";
         printf($fileDesc $toprint);
         close($fileDesc);
         `chmod 700 $file`;
