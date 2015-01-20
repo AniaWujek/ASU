@@ -41,17 +41,21 @@ GetOptions(
 
 #jezeli tworzymy nowego uzytkownika
 if ($create ne '') {
+    
+    my $ret, $newuid, 
+
     my $command = '-d /home/' . $create . ' -m ' . $create;
-    my $ret;
+    
     
     #dajemy mu UID
     if($uid ne '') {
         my $ok = uid_free($uid);
         if ($ok == 1) {
+            $newuid = $uid;
             $command = '-u ' . $uid . ' ' . $command; 
         }
         else {
-            my $newuid = getUID();  
+            $newuid = getUID();  
             say 'Brak takiego UID! Twoje UID to ' . $newuid;      
             $command = '-u ' . $newuid . ' ' . $command;
         }
@@ -70,10 +74,22 @@ if ($create ne '') {
     }
     elsif ($randpasswd) {
         my $pass = mkpasswd();
+        $passwd = $pass;
         $pass = `openssl passwd -crypt $pass`;
         chomp($pass);
         say 'Twoje haslo to ' . $pass;
         $command = '-p ' . $pass . ' ' . $command;
+    }
+    
+    #zapisanie danych
+    if($save ne '') {
+        my $fileDesc;
+        my $file = $save;
+        open($fileDesc, ">", $file) or die 'Nie udalo sie otworzyc pliku do zapisu';
+        
+        my $toprint = 'login: ' . $create . ' uid: ' . $uid . ' haslo: ' . $passwd;
+        printf($fileDesc $toprint);
+        close($fileDesc);
     }
     
     $ret = `useradd $command`;
@@ -130,16 +146,7 @@ elsif($user ne '') {
         closedir($DIR);
     }
     
-    #zapisanie danych
-    if($save ne '') {
-        my $fileDesc;
-        my $file = $save;
-        open($fileDesc, ">", $file) or die 'Nie udalo sie otworzyc pliku do zapisu';
-        my ($name, $pass, $uid, $gid, $quota, $comment, $gcos, $dir, $shell, $expire) = getpwnam($user);
-        my $toprint = 'login: ' . $user . ' uid: ' . $uid . ' haslo: ' . $pass;
-        printf($fileDesc $toprint);
-        close($fileDesc);
-    }
+    
     
 
 }
