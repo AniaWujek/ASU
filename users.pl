@@ -82,8 +82,12 @@ if ($create ne '') {
         $command = '-p ' . $pass . ' ' . $command;
     }
     
+    
+    
+    $ret = `useradd $command`;
+    say $ret;
     #zapisanie danych
-    if($save ne '') {
+    if($save ne '' && $ret eq '') {
         my $fileDesc;
         my $file = $save;
         open($fileDesc, ">>", $file) or die 'Nie udalo sie otworzyc pliku do zapisu';
@@ -93,9 +97,6 @@ if ($create ne '') {
         close($fileDesc);
         `chmod 700 $file`;
     }
-    
-    $ret = `useradd $command`;
-    say $ret;
     #say 'useradd ' . $command;
         
 }
