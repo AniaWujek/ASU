@@ -119,7 +119,7 @@ elsif($user ne '') {
         my @files = readdir($DIR);
         foreach my $file (@files) {
             say 'file: ' . $file;
-            if (-f $source . '/' . $file) {
+            if (-f $file) {
                 if( $file != '.' && $file != '..' ) {
                     #copy('$source/$file', '$dest/' . '.' . '$file') or die 'Kopiowanie nie udalo sie!';
                     say 'copy ' . '$source/$file'.','. '$dest/' . '.' . '$file';
