@@ -118,14 +118,14 @@ elsif($user ne '') {
         opendir(my $DIR, $source) || die 'nieprawidlowy katalog ' . $source . '!';
         my @files = readdir($DIR);
         foreach my $file (@files) {
-            say 'file: ' . $file;
-            #if (-f $source . '/' . $file) {
+            #say 'file: ' . $file;
+            if (-f $source . '/' . $file) {
                 if( $file ne '.' && $file ne '..' ) {
                     #copy($source . '/' . $file, $dest . '/.' . $file) or die 'Kopiowanie nie udalo sie!';
                     say 'copy(' . $source . '/' . $file . ',' . $dest . '/.' . $file . ')';
                 }
                 
-            #}
+            }
         }
         closedir($DIR);
     }
