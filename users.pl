@@ -166,8 +166,9 @@ else {
     my $help = '
     perl users.pl [opcje]
     -user login [-groupadd group] [-groupdel group]
-        [-shell shell] [-copydir dir] [-save file]
-    -create login [-uid uid] [-passwd password] | [-randpasswd]
+        [-shell shell] [-copydir dir] 
+    -create login [-uid uid] [-save file]
+        [-passwd password] | [-randpasswd]
     -help
     -delete login';
     say $help;
