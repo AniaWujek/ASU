@@ -162,7 +162,7 @@ elsif($delete) {
     #say "userdel -r " . $delete;
 }
 
-elsif($help) {
+else {
     my $help = '
     perl users.pl [opcje]
     -user login [-groupadd group] [-groupdel group]
