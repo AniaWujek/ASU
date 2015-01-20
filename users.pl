@@ -75,7 +75,7 @@ if ($create ne '') {
         say 'Twoje haslo to ' . $pass;
         $command = '-p ' . $pass . ' ' . $command;
     }
-    say $command;
+    
     $ret = `useradd $command`;
     say $ret;
     #say 'useradd ' . $command;
@@ -83,7 +83,7 @@ if ($create ne '') {
 }
 
 #modyfikacja uzytkownika
-if($user ne '') {
+else if($user ne '') {
 
     #dodajemy do grupy
     if($groupadd ne '') {
@@ -139,14 +139,14 @@ if($user ne '') {
 }
 
 #usuwamy uzytkownika
-if($delete) {
+else if($delete) {
     my $ret;    
     $ret = `userdel -r $delete`;
     say $ret;
     #say "userdel -r " . $delete;
 }
 
-if($help) {
+else if($help) {
     my $help = '
     perl users.pl [opcje]
     -user login [-groupadd group] [-groupdel group]
