@@ -118,7 +118,7 @@ elsif($user ne '') {
         foreach my $file (@files) {
             if (-f '$source/$file') {
                 copy('$source/$file', '$dest/' . '.' . '$file') or die 'Kopiowanie nie udalo sie!';
-                #say 'copy ' . '$source/$file'.','. '$dest/' . '.' . '$file';
+                say 'copy ' . '$source/$file'.','. '$dest/' . '.' . '$file';
             }
         }
         closedir($DIR);
