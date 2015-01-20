@@ -83,7 +83,7 @@ if ($create ne '') {
 }
 
 #modyfikacja uzytkownika
-else if($user ne '') {
+elsif($user ne '') {
 
     #dodajemy do grupy
     if($groupadd ne '') {
@@ -139,14 +139,14 @@ else if($user ne '') {
 }
 
 #usuwamy uzytkownika
-else if($delete) {
+elsif($delete) {
     my $ret;    
     $ret = `userdel -r $delete`;
     say $ret;
     #say "userdel -r " . $delete;
 }
 
-else if($help) {
+elsif($help) {
     my $help = '
     perl users.pl [opcje]
     -user login [-groupadd group] [-groupdel group]
